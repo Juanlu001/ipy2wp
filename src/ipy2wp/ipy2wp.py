@@ -80,15 +80,16 @@ def main():
     date_created = xmlrpclib.DateTime(datetime.datetime.now())
     status_published = 0
     wp_blogid = ""
-    data = {'title': title,
-            'description': postnew,
+    data = {'post_title': title,
+            'post_content': postnew,
             'post_type': 'post',
-            'dateCreated': date_created,
+            'post_date': date_created,
             'mt_allow_comments': 'open',
             'mt_allow_pings': 'open',
             'post_status': 'draft',
             'categories': categories,
-            'mt_keywords': tags}
+            'mt_keywords': tags
+            }
 
     if DEBUG:
         import json
