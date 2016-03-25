@@ -16,11 +16,11 @@ from traitlets.config import Config
 def main():
     # Options
     parser = argparse.ArgumentParser(description='Publish ipynb to wp')
-    parser.add_argument('--xmlrpc-url', help="The XML-RPC server/path url")
-    parser.add_argument('--user', help="The wordpress user")
-    parser.add_argument('--password', help="The wordpress user password")
-    parser.add_argument('--nb', help="The path and notebook filename")
-    parser.add_argument('--title', help="The title for the post in the site")
+    parser.add_argument('--xmlrpc-url', required=True, help="The XML-RPC server/path url")
+    parser.add_argument('--user', required=True, help="The wordpress user")
+    parser.add_argument('--password', required=True, help="The wordpress user password")
+    parser.add_argument('--nb', required=True, help="The path and notebook filename")
+    parser.add_argument('--title', required=True, help="The title for the post in the site")
     parser.add_argument('--categories', nargs='+', help="A list of categories separated by space")
     parser.add_argument('--tags', nargs='+', help="A list of tags separated by spaces")
     parser.add_argument('--template', help="The template to be used, if none then basic is used")
