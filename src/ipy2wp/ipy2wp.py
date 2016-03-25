@@ -13,6 +13,9 @@ import nbconvert as nbc
 from traitlets.config import Config
 
 
+DEBUG = 1
+
+
 def main():
     # Options
     parser = argparse.ArgumentParser(description='Publish ipynb to wp')
@@ -86,6 +89,24 @@ def main():
             'post_status': 'draft',
             'categories': categories,
             'mt_keywords': tags}
+
+    if DEBUG:
+        import json
+
+        # http://stackoverflow.com/a/22238613/554319
+        def json_serial(obj):
+            """JSON serializer for objects not serializable by default json code"""
+            if isinstance(obj, (datetime.date, xmlrpclib.DateTime)):
+                serial = str(obj)
+                return serial
+            raise TypeError("{} of type {} not serializable".format(obj, type(obj)))
+
+        with open('data.txt', 'w') as fh:
+            json.dump(data, fh, indent=2, default=json_serial)
+
+        with open('content.html', 'w') as fh:
+            fh.write(data['post_content'])
+
     server.metaWeblog.newPost(wp_blogid, user, password, data, status_published)
 
 if __name__ == '__main__':
